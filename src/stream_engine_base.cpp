@@ -672,6 +672,8 @@ int zmq::stream_engine_base_t::push_msg_to_session (msg_t *msg_)
 
 void zmq::stream_engine_base_t::error (error_reason_t reason_)
 {
+    debug_log::instance ().log ("error", _endpoint_uri_pair.remote, reason_);
+
     zmq_assert (_session);
 
     if ((_options.router_notify & ZMQ_NOTIFY_DISCONNECT) && !_handshaking) {

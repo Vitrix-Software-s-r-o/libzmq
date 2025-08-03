@@ -64,7 +64,7 @@ zmq::zmtp_engine_t::zmtp_engine_t (
             _heartbeat_timeout = _options.heartbeat_interval;
     }
 
-    debug_log::instance().log ("zmtp_engine_t::zmtp_engine_t heartbeat_timeout", _heartbeat_timeout);
+    debug_log::instance().log ("zmtp_engine_t::zmtp_engine_t heartbeat_timeout",endpoint_uri_pair_.remote,  _heartbeat_timeout);
 }
 
 zmq::zmtp_engine_t::~zmtp_engine_t ()
@@ -466,12 +466,12 @@ int zmq::zmtp_engine_t::produce_ping_message (msg_t *msg_)
     rc = _mechanism->encode (msg_);
     _next_msg = &zmtp_engine_t::pull_and_encode;
     if (!_has_timeout_timer && _heartbeat_timeout > 0) {
-        debug_log::instance().log ("add_timer heartbeat_timeout:", _heartbeat_timeout);
+        debug_log::instance().log ("add_timer heartbeat_timeout:", _endpoint_uri_pair.remote, _heartbeat_timeout);
         add_timer (_heartbeat_timeout, heartbeat_timeout_timer_id);
         _has_timeout_timer = true;
     }
     else {
-        debug_log::instance().log ("no heartbeat_timeout timer");
+        debug_log::instance().log ("no heartbeat_timeout timer", _endpoint_uri_pair.remote);
     }
     return rc;
 }
@@ -507,7 +507,7 @@ int zmq::zmtp_engine_t::process_heartbeat_message (msg_t *msg_)
         remote_heartbeat_ttl *= 100;
 
         if (!_has_ttl_timer && remote_heartbeat_ttl > 0) {
-            debug_log::instance().log ("add_timer heartbeat_ttl:",
+            debug_log::instance().log ("add_timer heartbeat_ttl:",_endpoint_uri_pair.remote,
                                         remote_heartbeat_ttl);
             add_timer (remote_heartbeat_ttl, heartbeat_ttl_timer_id);
             _has_ttl_timer = true;

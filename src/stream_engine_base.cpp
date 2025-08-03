@@ -153,7 +153,7 @@ zmq::stream_engine_base_t::~stream_engine_base_t ()
 void zmq::stream_engine_base_t::plug (io_thread_t *io_thread_,
                                       session_base_t *session_)
 {
-    debug_log::instance().log ("stream_engine_base_t::plug");
+    debug_log::instance().log ("stream_engine_base_t::plug", _endpoint_uri_pair.remote);
 
     zmq_assert (!_plugged);
     _plugged = true;
@@ -174,7 +174,7 @@ void zmq::stream_engine_base_t::plug (io_thread_t *io_thread_,
 
 void zmq::stream_engine_base_t::unplug ()
 {
-    debug_log::instance().log ("stream_engine_base_t::unplug");
+    debug_log::instance().log ("stream_engine_base_t::unplug", _endpoint_uri_pair.remote);
     zmq_assert (_plugged);
     _plugged = false;
 

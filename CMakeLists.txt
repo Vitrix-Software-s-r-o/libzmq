@@ -926,6 +926,7 @@ endif()
 # source files
 
 set(cxx-sources
+        debug_log.cpp
     precompiled.cpp
     address.cpp
     channel.cpp

@@ -30,6 +30,7 @@
 #include "raw_decoder.hpp"
 #include "raw_encoder.hpp"
 #include "config.hpp"
+#include "debug_log.h"
 #include "err.hpp"
 #include "ip.hpp"
 #include "tcp.hpp"
@@ -152,6 +153,8 @@ zmq::stream_engine_base_t::~stream_engine_base_t ()
 void zmq::stream_engine_base_t::plug (io_thread_t *io_thread_,
                                       session_base_t *session_)
 {
+    debug_log::instance().log ("stream_engine_base_t::plug");
+
     zmq_assert (!_plugged);
     _plugged = true;
 
@@ -171,6 +174,7 @@ void zmq::stream_engine_base_t::plug (io_thread_t *io_thread_,
 
 void zmq::stream_engine_base_t::unplug ()
 {
+    debug_log::instance().log ("stream_engine_base_t::unplug");
     zmq_assert (_plugged);
     _plugged = false;
 
@@ -512,6 +516,8 @@ const zmq::endpoint_uri_pair_t &zmq::stream_engine_base_t::get_endpoint () const
 void zmq::stream_engine_base_t::mechanism_ready ()
 {
     if (_options.heartbeat_interval > 0 && !_has_heartbeat_timer) {
+        debug_log::instance().log ("stream_engine_base_t::mechanism_ready add_timer", _options.heartbeat_interval);
+
         add_timer (_options.heartbeat_interval, heartbeat_ivl_timer_id);
         _has_heartbeat_timer = true;
     }

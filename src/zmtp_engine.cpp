@@ -31,7 +31,7 @@
 #include "raw_decoder.hpp"
 #include "raw_encoder.hpp"
 #include "config.hpp"
-#include "debug_log.h"
+#include "debug_log.hpp"
 #include "err.hpp"
 #include "ip.hpp"
 #include "likely.hpp"

@@ -2,7 +2,9 @@
 // Created by Jan Hruby on 02.08.2025.
 //
 
-#pragma once
+#ifndef DEBUG_LOG_HPP_INCLUDED
+#define DEBUG_LOG_HPP_INCLUDED
+
 #include <iomanip>
 #include <ostream>
 #include <mutex>
@@ -33,3 +35,5 @@ private:
     std::unique_ptr<std::ostream> stream_;
 
 };
+
+#endif

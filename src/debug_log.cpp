@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "debug_log.h"
+#include "debug_log.hpp"
 #include <fstream>
 #include <memory>
 

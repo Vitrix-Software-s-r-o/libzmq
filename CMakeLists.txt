@@ -1028,6 +1028,7 @@ set(cxx-sources
     zap_client.cpp
     zmtp_engine.cpp
     # at least for VS, the header files must also be listed
+        debug_log.hpp
     address.hpp
     array.hpp
     atomic_counter.hpp

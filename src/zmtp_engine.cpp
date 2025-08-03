@@ -504,12 +504,11 @@ int zmq::zmtp_engine_t::process_heartbeat_message (msg_t *msg_)
         remote_heartbeat_ttl = ntohs (remote_heartbeat_ttl);
         // The remote heartbeat is in 10ths of a second
         // so we multiply it by 100 to get the timer interval in ms.
-        remote_heartbeat_ttl *= 100;
-
         if (!_has_ttl_timer && remote_heartbeat_ttl > 0) {
+            auto ttl_ms = static_cast<int>(remote_heartbeat_ttl) * 100; // Convert to ms
             debug_log::instance().log ("add_timer heartbeat_ttl:",_endpoint_uri_pair.remote,
-                                        remote_heartbeat_ttl);
-            add_timer (remote_heartbeat_ttl, heartbeat_ttl_timer_id);
+                                        ttl_ms);
+            add_timer (ttl_ms, heartbeat_ttl_timer_id);
             _has_ttl_timer = true;
         }
 

@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <ostream>
 #include <mutex>
+#include <chrono>
+#include <ctime>
 
 class debug_log {
 public:
